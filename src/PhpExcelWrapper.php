@@ -220,36 +220,16 @@ class PhpExcelWrapper
             'bgpattern' => null,
         ];
         $style = array_merge($default_style, $style);
-        if (!is_null($style['font'])) {
-            $this->setFontName($col, $row, $sheetNo, $style['font']);
-        }
-        if (!is_null($style['underline'])) {
-            $this->setUnderline($col, $row, $sheetNo, $style['underline']);
-        }
-        if (!is_null($style['bold'])) {
-            $this->setFontBold($col, $row, $sheetNo, $style['bold']);
-        }
-        if (!is_null($style['italic'])) {
-            $this->setItalic($col, $row, $sheetNo, $style['italic']);
-        }
-        if (!is_null($style['strikethrough'])) {
-            $this->setStrikethrough($col, $row, $sheetNo, $style['strikethrough']);
-        }
-        if (!is_null($style['color'])) {
-            $this->setColor($col, $row, $sheetNo, $style['color']);
-        }
-        if (!is_null($style['size'])) {
-            $this->setSize($col, $row, $sheetNo, $style['size']);
-        }
-        if (!is_null($style['alignh'])) {
-            $this->setAlignHolizonal($col, $row, $sheetNo, $style['alignh']);
-        }
-        if (!is_null($style['alignv'])) {
-            $this->setAlignVertical($col, $row, $sheetNo, $style['alignv']);
-        }
-        if (!is_null($style['bgcolor'])) {
-            $this->setBackgroundColor($col, $row, $sheetNo, $style['bgcolor'], $style['bgpattern']);
-        }
+        $this->setFontName($col, $row, $sheetNo, $style['font']);
+        $this->setUnderline($col, $row, $sheetNo, $style['underline']);
+        $this->setFontBold($col, $row, $sheetNo, $style['bold']);
+        $this->setItalic($col, $row, $sheetNo, $style['italic']);
+        $this->setStrikethrough($col, $row, $sheetNo, $style['strikethrough']);
+        $this->setColor($col, $row, $sheetNo, $style['color']);
+        $this->setSize($col, $row, $sheetNo, $style['size']);
+        $this->setAlignHolizonal($col, $row, $sheetNo, $style['alignh']);
+        $this->setAlignVertical($col, $row, $sheetNo, $style['alignv']);
+        $this->setBackgroundColor($col, $row, $sheetNo, $style['bgcolor'], $style['bgpattern']);
     }
 
     /**
@@ -258,13 +238,15 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param string $fontName フォント名
+    * @param string|null $fontName フォント名
     * @author hagiwara
     */
     public function setFontName($col, $row, $sheetNo, $fontName)
     {
-        $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setName($fontName);
+        if (is_null($fontName)) {
+            return;
+        }
+        $this->getFont($col, $row, $sheetNo)->setName($fontName);
     }
 
     /**
@@ -273,13 +255,15 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $underline 下線を引くか
+    * @param boolean|null $underline 下線を引くか
     * @author hagiwara
     */
     public function setUnderline($col, $row, $sheetNo, $underline)
     {
-        $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setUnderline($underline);
+        if (is_null($underline)) {
+            return;
+        }
+        $this->getFont($col, $row, $sheetNo)->setUnderline($underline);
     }
 
     /**
@@ -288,13 +272,15 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $bold 太字を引くか
+    * @param boolean|null $bold 太字を引くか
     * @author hagiwara
     */
     public function setFontBold($col, $row, $sheetNo, $bold)
     {
-        $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setBold($bold);
+        if (is_null($bold)) {
+            return;
+        }
+        $this->getFont($col, $row, $sheetNo)->setBold($bold);
     }
 
     /**
@@ -303,13 +289,15 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $italic イタリックにするか
+    * @param boolean|null $italic イタリックにするか
     * @author hagiwara
     */
     public function setItalic($col, $row, $sheetNo, $italic)
     {
-        $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setBold($italic);
+        if (is_null($italic)) {
+            return;
+        }
+        $this->getFont($col, $row, $sheetNo)->setItalic($italic);
     }
 
     /**
@@ -318,13 +306,15 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $strikethrough 打ち消し線をつけるか
+    * @param boolean|null $strikethrough 打ち消し線をつけるか
     * @author hagiwara
     */
     public function setStrikethrough($col, $row, $sheetNo, $strikethrough)
     {
-        $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setStrikethrough($strikethrough);
+        if (is_null($strikethrough)) {
+            return;
+        }
+        $this->getFont($col, $row, $sheetNo)->setStrikethrough($strikethrough);
     }
 
     /**
@@ -333,13 +323,15 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param string $color 色(ARGB)
+    * @param string|null $color 色(ARGB)
     * @author hagiwara
     */
     public function setColor($col, $row, $sheetNo, $color)
     {
-        $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->getColor()->setARGB($color);
+        if (is_null($color)) {
+            return;
+        }
+        $this->getFont($col, $row, $sheetNo)->getColor()->setARGB($color);
     }
 
     /**
@@ -348,13 +340,29 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param integer $size
+    * @param integer|null $size
     * @author hagiwara
     */
     public function setSize($col, $row, $sheetNo, $size)
     {
+        if (is_null($size)) {
+            return;
+        }
+        $this->getFont($col, $row, $sheetNo)->setSize($size);
+    }
+
+    /**
+    * getFont
+    * fontデータ取得
+    * @param integer $col 行
+    * @param integer $row 列
+    * @param integer $sheetNo シート番号
+    * @author hagiwara
+    */
+    private function getFont($col, $row, $sheetNo)
+    {
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setSize($size);
+        return $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont();
     }
 
     /**
@@ -363,14 +371,16 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param string $type
+    * @param string|null $type
     * typeはgetAlignHolizonalType参照
     * @author hagiwara
     */
-    public function setAlignHolizonal($col, $row, $sheetNo, $type = 'center')
+    public function setAlignHolizonal($col, $row, $sheetNo, $type)
     {
-        $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getAlignment()->setHorizontal($this->getAlignHolizonalType($type));
+        if (is_null($type)) {
+            return;
+        }
+        $this->getAlignment($col, $row, $sheetNo)->setHorizontal($this->getAlignHolizonalType($type));
     }
 
     /**
@@ -379,14 +389,30 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param string $type
+    * @param string|null $type
     * typeはgetAlignVerticalType参照
     * @author hagiwara
     */
-    public function setAlignVertical($col, $row, $sheetNo, $type = 'center')
+    public function setAlignVertical($col, $row, $sheetNo, $type)
+    {
+        if (is_null($type)) {
+            return;
+        }
+        $this->getAlignment($col, $row, $sheetNo)->setVertical($this->getAlignVerticalType($type));
+    }
+
+    /**
+    * getAlignment
+    * alignmentデータ取得
+    * @param integer $col 行
+    * @param integer $row 列
+    * @param integer $sheetNo シート番号
+    * @author hagiwara
+    */
+    private function getAlignment($col, $row, $sheetNo)
     {
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getAlignment()->setVertical($this->getAlignVerticalType($type));
+        return $this->getSheet($sheetNo)->getStyle($cellInfo)->getAlignment();
     }
 
     /**
@@ -598,6 +624,7 @@ class PhpExcelWrapper
     * シート情報の読み込み
     * @param integer $sheetNo シート番号
     * @author hagiwara
+    * @return null|\PHPExcel_Worksheet
     */
     private function getSheet($sheetNo)
     {
