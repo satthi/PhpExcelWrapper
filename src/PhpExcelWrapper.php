@@ -247,7 +247,7 @@ class PhpExcelWrapper
             return;
         }
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setName($fontName);
+        $this->getFont($col, $row, $sheetNo)->setName($fontName);
     }
 
     /**
@@ -265,7 +265,7 @@ class PhpExcelWrapper
             return;
         }
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setUnderline($underline);
+        $this->getFont($col, $row, $sheetNo)->setUnderline($underline);
     }
 
     /**
@@ -283,7 +283,7 @@ class PhpExcelWrapper
             return;
         }
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setBold($bold);
+        $this->getFont($col, $row, $sheetNo)->setBold($bold);
     }
 
     /**
@@ -301,7 +301,7 @@ class PhpExcelWrapper
             return;
         }
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setBold($italic);
+        $this->getFont($col, $row, $sheetNo)->setItalic($italic);
     }
 
     /**
@@ -319,7 +319,7 @@ class PhpExcelWrapper
             return;
         }
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setStrikethrough($strikethrough);
+        $this->getFont($col, $row, $sheetNo)->setStrikethrough($strikethrough);
     }
 
     /**
@@ -337,7 +337,7 @@ class PhpExcelWrapper
             return;
         }
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->getColor()->setARGB($color);
+        $this->getFont($col, $row, $sheetNo)->getColor()->setARGB($color);
     }
 
     /**
@@ -355,7 +355,13 @@ class PhpExcelWrapper
             return;
         }
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setSize($size);
+        $this->getFont($col, $row, $sheetNo)->setSize($size);
+    }
+
+    private function getFont($col, $row, $sheetNo)
+    {
+        $cellInfo = $this->cellInfo($col, $row);
+        return $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont();
     }
 
     /**
