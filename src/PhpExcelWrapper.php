@@ -18,6 +18,62 @@ class PhpExcelWrapper
     private $__phpexcel;
     private $__sheet = [];
     private $__deleteSheetList = [];
+    private static $__borderType = [
+        'none' => PHPExcel_Style_Border::BORDER_NONE,
+        'thin' => PHPExcel_Style_Border::BORDER_THIN,
+        'medium' => PHPExcel_Style_Border::BORDER_MEDIUM,
+        'dashed' => PHPExcel_Style_Border::BORDER_DASHED,
+        'dotted' => PHPExcel_Style_Border::BORDER_DOTTED,
+        'thick' => PHPExcel_Style_Border::BORDER_THICK,
+        'double' => PHPExcel_Style_Border::BORDER_DOUBLE,
+        'hair' => PHPExcel_Style_Border::BORDER_HAIR,
+        'mediumdashed' => PHPExcel_Style_Border::BORDER_MEDIUMDASHED,
+        'dashdot' => PHPExcel_Style_Border::BORDER_DASHDOT,
+        'mediumdashdot' => PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT,
+        'dashdotdot' => PHPExcel_Style_Border::BORDER_DASHDOTDOT,
+        'mediumdashdotdot' => PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT,
+        'slantdashdot' => PHPExcel_Style_Border::BORDER_SLANTDASHDOT,
+    ];
+
+    private static $__alignHolizonalType = [
+        'general' => PHPExcel_Style_Alignment::HORIZONTAL_GENERAL,
+        'center' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+        'left' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+        'right' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+        'justify' => PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY,
+        'countinuous' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS,
+    ];
+
+    private static $__alignVerticalType = [
+        'bottom' => PHPExcel_Style_Alignment::VERTICAL_BOTTOM,
+        'center' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+        'justify' => PHPExcel_Style_Alignment::VERTICAL_JUSTIFY,
+        'top' => PHPExcel_Style_Alignment::VERTICAL_TOP,
+    ];
+
+    private static $__fillType = [
+        'linear' => PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
+        'path' => PHPExcel_Style_Fill::FILL_GRADIENT_PATH,
+        'none' => PHPExcel_Style_Fill::FILL_NONE,
+        'darkdown' => PHPExcel_Style_Fill::FILL_PATTERN_DARKDOWN,
+        'darkgray' => PHPExcel_Style_Fill::FILL_PATTERN_DARKGRAY,
+        'darkgrid' => PHPExcel_Style_Fill::FILL_PATTERN_DARKGRID,
+        'darkhorizontal' => PHPExcel_Style_Fill::FILL_PATTERN_DARKHORIZONTAL,
+        'darktrellis' => PHPExcel_Style_Fill::FILL_PATTERN_DARKTRELLIS,
+        'darkup' => PHPExcel_Style_Fill::FILL_PATTERN_DARKUP,
+        'darkvertical' => PHPExcel_Style_Fill::FILL_PATTERN_DARKVERTICAL,
+        'gray0625' => PHPExcel_Style_Fill::FILL_PATTERN_GRAY0625,
+        'gray125' => PHPExcel_Style_Fill::FILL_PATTERN_GRAY125,
+        'lightdown' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTDOWN,
+        'lightgray' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRAY,
+        'lightgrid' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRID,
+        'lighthorizontal' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTHORIZONTAL,
+        'lighttrellis' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTTRELLIS,
+        'lightup' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTUP,
+        'lightvertical' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTVERTICAL,
+        'mediumgray' => PHPExcel_Style_Fill::FILL_PATTERN_MEDIUMGRAY,
+        'solid' => PHPExcel_Style_Fill::FILL_SOLID,
+    ];
 
     /**
     * __construct
@@ -398,22 +454,7 @@ class PhpExcelWrapper
     */
     private function getBorderType($type)
     {
-        $type_list = [
-            'none' => PHPExcel_Style_Border::BORDER_NONE,
-            'thin' => PHPExcel_Style_Border::BORDER_THIN,
-            'medium' => PHPExcel_Style_Border::BORDER_MEDIUM,
-            'dashed' => PHPExcel_Style_Border::BORDER_DASHED,
-            'dotted' => PHPExcel_Style_Border::BORDER_DOTTED,
-            'thick' => PHPExcel_Style_Border::BORDER_THICK,
-            'double' => PHPExcel_Style_Border::BORDER_DOUBLE,
-            'hair' => PHPExcel_Style_Border::BORDER_HAIR,
-            'mediumdashed' => PHPExcel_Style_Border::BORDER_MEDIUMDASHED,
-            'dashdot' => PHPExcel_Style_Border::BORDER_DASHDOT,
-            'mediumdashdot' => PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT,
-            'dashdotdot' => PHPExcel_Style_Border::BORDER_DASHDOTDOT,
-            'mediumdashdotdot' => PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT,
-            'slantdashdot' => PHPExcel_Style_Border::BORDER_SLANTDASHDOT,
-        ];
+        $type_list = self::$__borderType;
         if (array_key_exists($type, $type_list)) {
             return $type_list[$type];
         }
@@ -428,14 +469,7 @@ class PhpExcelWrapper
     */
     private function getAlignHolizonalType($type)
     {
-        $type_list = [
-            'general' => PHPExcel_Style_Alignment::HORIZONTAL_GENERAL,
-            'center' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-            'left' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
-            'right' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
-            'justify' => PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY,
-            'countinuous' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS,
-        ];
+        $type_list = self::$__alignHolizonalType;
         if (array_key_exists($type, $type_list)) {
             return $type_list[$type];
         }
@@ -450,12 +484,7 @@ class PhpExcelWrapper
     */
     private function getAlignVerticalType($type)
     {
-        $type_list = [
-            'bottom' => PHPExcel_Style_Alignment::VERTICAL_BOTTOM,
-            'center' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
-            'justify' => PHPExcel_Style_Alignment::VERTICAL_JUSTIFY,
-            'top' => PHPExcel_Style_Alignment::VERTICAL_TOP,
-        ];
+        $type_list = self::$__alignVerticalType;
         if (array_key_exists($type, $type_list)) {
             return $type_list[$type];
         }
@@ -470,29 +499,7 @@ class PhpExcelWrapper
     */
     private function getFillType($type)
     {
-        $type_list = [
-            'linear' => PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
-            'path' => PHPExcel_Style_Fill::FILL_GRADIENT_PATH,
-            'none' => PHPExcel_Style_Fill::FILL_NONE,
-            'darkdown' => PHPExcel_Style_Fill::FILL_PATTERN_DARKDOWN,
-            'darkgray' => PHPExcel_Style_Fill::FILL_PATTERN_DARKGRAY,
-            'darkgrid' => PHPExcel_Style_Fill::FILL_PATTERN_DARKGRID,
-            'darkhorizontal' => PHPExcel_Style_Fill::FILL_PATTERN_DARKHORIZONTAL,
-            'darktrellis' => PHPExcel_Style_Fill::FILL_PATTERN_DARKTRELLIS,
-            'darkup' => PHPExcel_Style_Fill::FILL_PATTERN_DARKUP,
-            'darkvertical' => PHPExcel_Style_Fill::FILL_PATTERN_DARKVERTICAL,
-            'gray0625' => PHPExcel_Style_Fill::FILL_PATTERN_GRAY0625,
-            'gray125' => PHPExcel_Style_Fill::FILL_PATTERN_GRAY125,
-            'lightdown' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTDOWN,
-            'lightgray' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRAY,
-            'lightgrid' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRID,
-            'lighthorizontal' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTHORIZONTAL,
-            'lighttrellis' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTTRELLIS,
-            'lightup' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTUP,
-            'lightvertical' => PHPExcel_Style_Fill::FILL_PATTERN_LIGHTVERTICAL,
-            'mediumgray' => PHPExcel_Style_Fill::FILL_PATTERN_MEDIUMGRAY,
-            'solid' => PHPExcel_Style_Fill::FILL_SOLID,
-        ];
+        $type_list = self::$__fillType;
         if (array_key_exists($type, $type_list)) {
             return $type_list[$type];
         }
@@ -502,7 +509,7 @@ class PhpExcelWrapper
     /**
     * createSheet
     * シートの作成
-    * @param text $type
+    * @param text $name
     * @author hagiwara
     */
     public function createSheet($name = null)
