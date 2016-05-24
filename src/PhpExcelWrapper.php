@@ -380,8 +380,7 @@ class PhpExcelWrapper
         if (is_null($type)) {
             return;
         }
-        $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getAlignment()->setHorizontal($this->getAlignHolizonalType($type));
+        $this->getAlignment($col, $row, $sheetNo)->->setHorizontal($this->getAlignHolizonalType($type));
     }
 
     /**
@@ -399,8 +398,21 @@ class PhpExcelWrapper
         if (is_null($type)) {
             return;
         }
+        $this->getAlignment($col, $row, $sheetNo)->setVertical($this->getAlignVerticalType($type));
+    }
+
+    /**
+    * getAlignment
+    * alignmentデータ取得
+    * @param integer $col 行
+    * @param integer $row 列
+    * @param integer $sheetNo シート番号
+    * @author hagiwara
+    */
+    private function getAlignment($col, $row, $sheetNo)
+    {
         $cellInfo = $this->cellInfo($col, $row);
-        $this->getSheet($sheetNo)->getStyle($cellInfo)->getAlignment()->setVertical($this->getAlignVerticalType($type));
+        return $this->getSheet($sheetNo)->getStyle($cellInfo)->getAlignment();
     }
 
     /**
