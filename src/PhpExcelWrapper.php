@@ -112,7 +112,7 @@ class PhpExcelWrapper
         $this->getSheet($sheetNo)->setCellValue($cellInfo, $value);
 
         //参照セルの指定がある場合には書式をコピーする
-        if ($refCol !== null && $refRow !== null) {
+        if (!is_null($refCol) && !is_null($refRow)) {
             $this->styleCopy($col, $row, $sheetNo, $refCol, $refRow, $refSheet);
         }
     }
@@ -138,19 +138,19 @@ class PhpExcelWrapper
         $objDrawing = new PHPExcel_Worksheet_Drawing();//画像用のオプジェクト作成
         $objDrawing->setPath($img);//貼り付ける画像のパスを指定
         $objDrawing->setCoordinates($cellInfo);//位置
-        if ($height !== null) {
+        if (!is_null($height)) {
             $objDrawing->setHeight($height);//画像の高さを指定
         }
-        if ($width !== null) {
+        if (!is_null($width)) {
             $objDrawing->setWidth($width);//画像の高さを指定
         }
-        if ($proportial !== null) {
+        if (!is_null($proportial)) {
             $objDrawing->setResizeProportional($proportial);//縦横比の変更なし
         }
-        if ($offsetx !== null) {
+        if (!is_null($offsetx)) {
             $objDrawing->setOffsetX($offsetx);//指定した位置からどれだけ横方向にずらすか。
         }
-        if ($offsety !== null) {
+        if (!is_null($offsety)) {
             $objDrawing->setOffsetY($offsety);//指定した位置からどれだけ縦方向にずらすか。
         }
         $objDrawing->setWorksheet($this->getSheet($sheetNo));
@@ -220,34 +220,34 @@ class PhpExcelWrapper
             'bgpattern' => null,
         ];
         $style = array_merge($default_style, $style);
-        if ($style['font'] !== null) {
+        if (!is_null($style['font'])) {
             $this->setFontName($col, $row, $sheetNo, $style['font']);
         }
-        if ($style['underline'] !== null) {
+        if (!is_null($style['underline'])) {
             $this->setUnderline($col, $row, $sheetNo, $style['underline']);
         }
-        if ($style['bold'] !== null) {
+        if (!is_null($style['bold'])) {
             $this->setFontBold($col, $row, $sheetNo, $style['bold']);
         }
-        if ($style['italic'] !== null) {
+        if (!is_null($style['italic'])) {
             $this->setItalic($col, $row, $sheetNo, $style['italic']);
         }
-        if ($style['strikethrough'] !== null) {
+        if (!is_null($style['strikethrough'])) {
             $this->setStrikethrough($col, $row, $sheetNo, $style['strikethrough']);
         }
-        if ($style['color'] !== null) {
+        if (!is_null($style['color'])) {
             $this->setColor($col, $row, $sheetNo, $style['color']);
         }
-        if ($style['size'] !== null) {
+        if (!is_null($style['size'])) {
             $this->setSize($col, $row, $sheetNo, $style['size']);
         }
-        if ($style['alignh'] !== null) {
+        if (!is_null($style['alignh'])) {
             $this->setAlignHolizonal($col, $row, $sheetNo, $style['alignh']);
         }
-        if ($style['alignv'] !== null) {
+        if (!is_null($style['alignv'])) {
             $this->setAlignVertical($col, $row, $sheetNo, $style['alignv']);
         }
-        if ($style['bgcolor'] !== null) {
+        if (!is_null($style['bgcolor'])) {
             $this->setBackgroundColor($col, $row, $sheetNo, $style['bgcolor'], $style['bgpattern']);
         }
     }
@@ -416,7 +416,7 @@ class PhpExcelWrapper
         ];
         $border = array_merge($default_border, $border);
         foreach ($border as $border_position => $border_setting) {
-            if ($border_setting !== null) {
+            if (!is_null($border_setting)) {
                 $borderInfo =  $this->getSheet($sheetNo)->getStyle($cellInfo)->getBorders()->{'get' . $this->camelize($border_position)}();
                 if (array_key_exists('type', $border_setting)) {
                     $borderInfo->setBorderStyle($this->getBorderType($border_setting['type']));
@@ -518,7 +518,7 @@ class PhpExcelWrapper
         $newSheet = $this->__phpexcel->createSheet();
         $sheetNo = $this->__phpexcel->getIndex($newSheet);
         $this->__sheet[$sheetNo] = $newSheet;
-        if ($name !== null) {
+        if (!is_null($name)) {
             $this->renameSheet($sheetNo, $name);
         }
     }
