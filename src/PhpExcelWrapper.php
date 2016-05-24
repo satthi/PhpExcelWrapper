@@ -246,7 +246,6 @@ class PhpExcelWrapper
         if (is_null($fontName)) {
             return;
         }
-        $cellInfo = $this->cellInfo($col, $row);
         $this->getFont($col, $row, $sheetNo)->setName($fontName);
     }
 
@@ -264,7 +263,6 @@ class PhpExcelWrapper
         if (is_null($underline)) {
             return;
         }
-        $cellInfo = $this->cellInfo($col, $row);
         $this->getFont($col, $row, $sheetNo)->setUnderline($underline);
     }
 
@@ -282,7 +280,6 @@ class PhpExcelWrapper
         if (is_null($bold)) {
             return;
         }
-        $cellInfo = $this->cellInfo($col, $row);
         $this->getFont($col, $row, $sheetNo)->setBold($bold);
     }
 
@@ -300,7 +297,6 @@ class PhpExcelWrapper
         if (is_null($italic)) {
             return;
         }
-        $cellInfo = $this->cellInfo($col, $row);
         $this->getFont($col, $row, $sheetNo)->setItalic($italic);
     }
 
@@ -318,7 +314,6 @@ class PhpExcelWrapper
         if (is_null($strikethrough)) {
             return;
         }
-        $cellInfo = $this->cellInfo($col, $row);
         $this->getFont($col, $row, $sheetNo)->setStrikethrough($strikethrough);
     }
 
@@ -336,7 +331,6 @@ class PhpExcelWrapper
         if (is_null($color)) {
             return;
         }
-        $cellInfo = $this->cellInfo($col, $row);
         $this->getFont($col, $row, $sheetNo)->getColor()->setARGB($color);
     }
 
@@ -354,10 +348,17 @@ class PhpExcelWrapper
         if (is_null($size)) {
             return;
         }
-        $cellInfo = $this->cellInfo($col, $row);
         $this->getFont($col, $row, $sheetNo)->setSize($size);
     }
 
+    /**
+    * getFont
+    * fontデータ取得
+    * @param integer $col 行
+    * @param integer $row 列
+    * @param integer $sheetNo シート番号
+    * @author hagiwara
+    */
     private function getFont($col, $row, $sheetNo)
     {
         $cellInfo = $this->cellInfo($col, $row);
