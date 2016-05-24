@@ -78,7 +78,7 @@ class PhpExcelWrapper
     /**
     * __construct
     *
-    * @param text $template テンプレートファイルのパス
+    * @param string $template テンプレートファイルのパス
     * @author hagiwara
     */
     public function __construct($template = null, $type = 'Excel2007')
@@ -96,7 +96,7 @@ class PhpExcelWrapper
     /**
     * setVal
     * 値のセット
-    * @param text $value 値
+    * @param string $value 値
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
@@ -120,7 +120,7 @@ class PhpExcelWrapper
     /**
     * setImage
     * 画像のセット
-    * @param text $img 画像のファイルパス
+    * @param string $img 画像のファイルパス
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
@@ -258,7 +258,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param text $fontName フォント名
+    * @param string $fontName フォント名
     * @author hagiwara
     */
     public function setFontName($col, $row, $sheetNo, $fontName)
@@ -288,7 +288,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $underline 太字を引くか
+    * @param boolean $bold 太字を引くか
     * @author hagiwara
     */
     public function setFontBold($col, $row, $sheetNo, $bold)
@@ -318,7 +318,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $italic イタリックにするか
+    * @param boolean $strikethrough 打ち消し線をつけるか
     * @author hagiwara
     */
     public function setStrikethrough($col, $row, $sheetNo, $strikethrough)
@@ -333,7 +333,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param text $color 色(ARGB)
+    * @param string $color 色(ARGB)
     * @author hagiwara
     */
     public function setColor($col, $row, $sheetNo, $color)
@@ -363,7 +363,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param array $type
+    * @param string $type
     * typeはgetAlignHolizonalType参照
     * @author hagiwara
     */
@@ -379,7 +379,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param array $type
+    * @param string $type
     * typeはgetAlignVerticalType参照
     * @author hagiwara
     */
@@ -434,8 +434,8 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param text $color 色
-    * @param text $fillType 塗りつぶし方(デフォルトsolid)
+    * @param string $color 色
+    * @param string $fillType 塗りつぶし方(デフォルトsolid)
     * fillTypeの内部はgetFillType参照
     * @author hagiwara
     */
@@ -449,7 +449,7 @@ class PhpExcelWrapper
     /**
     * getBorderType
     * 罫線の種類の設定
-    * @param text $type
+    * @param string $type
     * @author hagiwara
     */
     private function getBorderType($type)
@@ -464,7 +464,7 @@ class PhpExcelWrapper
     /**
     * getAlignHolizonalType
     * 水平方向のAlignの設定
-    * @param text $type
+    * @param string $type
     * @author hagiwara
     */
     private function getAlignHolizonalType($type)
@@ -479,7 +479,7 @@ class PhpExcelWrapper
     /**
     * getAlignVerticalType
     * 垂直方向のAlignの設定
-    * @param text $type
+    * @param string $type
     * @author hagiwara
     */
     private function getAlignVerticalType($type)
@@ -494,7 +494,7 @@ class PhpExcelWrapper
     /**
     * getFillType
     * 塗りつぶしの設定
-    * @param text $type
+    * @param string $type
     * @author hagiwara
     */
     private function getFillType($type)
@@ -509,7 +509,7 @@ class PhpExcelWrapper
     /**
     * createSheet
     * シートの作成
-    * @param text $name
+    * @param string $name
     * @author hagiwara
     */
     public function createSheet($name = null)
@@ -540,19 +540,18 @@ class PhpExcelWrapper
     * シートのコピー
     * @param integer $sheetNo
     * @param integer $position
-    * @param text $name
+    * @param string $name
     * @author hagiwara
     */
     public function copySheet($sheetNo, $position = null, $name = null)
     {
         $base = $this->getSheet($sheetNo)->copy();
-        // （重要！！）シート名を変更する
         if ($name === null) {
             $name = uniqid();
         }
         $base->setTitle($name);
 
-        // 第2パラメータが null(省略時含む)の場合は最後尾に追加される
+        // $positionが null(省略時含む)の場合は最後尾に追加される
         $this->__phpexcel->addSheet($base, $position);
     }
 
@@ -560,7 +559,7 @@ class PhpExcelWrapper
     * renameSheet
     * シート名の変更
     * @param integer $sheetNo
-    * @param text $name
+    * @param string $name
     * @author hagiwara
     */
     public function renameSheet($sheetNo, $name)
@@ -571,7 +570,7 @@ class PhpExcelWrapper
     /**
     * write
     * xlsxファイルの書き込み
-    * @param text $file 書き込み先のファイルパス
+    * @param string $file 書き込み先のファイルパス
     * @author hagiwara
     */
     public function write($file, $type = 'Excel2007')
@@ -624,7 +623,7 @@ class PhpExcelWrapper
     /**
     * cellInfo
     * http://qiita.com/Hiraku/items/036080976884fad1e450
-    * @param text $str
+    * @param string $str
     */
     private function camelize($str)
     {
