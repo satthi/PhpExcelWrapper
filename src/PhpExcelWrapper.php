@@ -380,7 +380,7 @@ class PhpExcelWrapper
         if (is_null($type)) {
             return;
         }
-        $this->getAlignment($col, $row, $sheetNo)->->setHorizontal($this->getAlignHolizonalType($type));
+        $this->getAlignment($col, $row, $sheetNo)->setHorizontal($this->getAlignHolizonalType($type));
     }
 
     /**
