@@ -220,36 +220,16 @@ class PhpExcelWrapper
             'bgpattern' => null,
         ];
         $style = array_merge($default_style, $style);
-        if (!is_null($style['font'])) {
-            $this->setFontName($col, $row, $sheetNo, $style['font']);
-        }
-        if (!is_null($style['underline'])) {
-            $this->setUnderline($col, $row, $sheetNo, $style['underline']);
-        }
-        if (!is_null($style['bold'])) {
-            $this->setFontBold($col, $row, $sheetNo, $style['bold']);
-        }
-        if (!is_null($style['italic'])) {
-            $this->setItalic($col, $row, $sheetNo, $style['italic']);
-        }
-        if (!is_null($style['strikethrough'])) {
-            $this->setStrikethrough($col, $row, $sheetNo, $style['strikethrough']);
-        }
-        if (!is_null($style['color'])) {
-            $this->setColor($col, $row, $sheetNo, $style['color']);
-        }
-        if (!is_null($style['size'])) {
-            $this->setSize($col, $row, $sheetNo, $style['size']);
-        }
-        if (!is_null($style['alignh'])) {
-            $this->setAlignHolizonal($col, $row, $sheetNo, $style['alignh']);
-        }
-        if (!is_null($style['alignv'])) {
-            $this->setAlignVertical($col, $row, $sheetNo, $style['alignv']);
-        }
-        if (!is_null($style['bgcolor'])) {
-            $this->setBackgroundColor($col, $row, $sheetNo, $style['bgcolor'], $style['bgpattern']);
-        }
+        $this->setFontName($col, $row, $sheetNo, $style['font']);
+        $this->setUnderline($col, $row, $sheetNo, $style['underline']);
+        $this->setFontBold($col, $row, $sheetNo, $style['bold']);
+        $this->setItalic($col, $row, $sheetNo, $style['italic']);
+        $this->setStrikethrough($col, $row, $sheetNo, $style['strikethrough']);
+        $this->setColor($col, $row, $sheetNo, $style['color']);
+        $this->setSize($col, $row, $sheetNo, $style['size']);
+        $this->setAlignHolizonal($col, $row, $sheetNo, $style['alignh']);
+        $this->setAlignVertical($col, $row, $sheetNo, $style['alignv']);
+        $this->setBackgroundColor($col, $row, $sheetNo, $style['bgcolor'], $style['bgpattern']);
     }
 
     /**
@@ -263,6 +243,9 @@ class PhpExcelWrapper
     */
     public function setFontName($col, $row, $sheetNo, $fontName)
     {
+        if (is_null($fontName)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setName($fontName);
     }
@@ -278,6 +261,9 @@ class PhpExcelWrapper
     */
     public function setUnderline($col, $row, $sheetNo, $underline)
     {
+        if (is_null($underline)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setUnderline($underline);
     }
@@ -293,6 +279,9 @@ class PhpExcelWrapper
     */
     public function setFontBold($col, $row, $sheetNo, $bold)
     {
+        if (is_null($bold)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setBold($bold);
     }
@@ -308,6 +297,9 @@ class PhpExcelWrapper
     */
     public function setItalic($col, $row, $sheetNo, $italic)
     {
+        if (is_null($italic)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setBold($italic);
     }
@@ -323,6 +315,9 @@ class PhpExcelWrapper
     */
     public function setStrikethrough($col, $row, $sheetNo, $strikethrough)
     {
+        if (is_null($strikethrough)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setStrikethrough($strikethrough);
     }
@@ -338,6 +333,9 @@ class PhpExcelWrapper
     */
     public function setColor($col, $row, $sheetNo, $color)
     {
+        if (is_null($color)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->getColor()->setARGB($color);
     }
@@ -353,6 +351,9 @@ class PhpExcelWrapper
     */
     public function setSize($col, $row, $sheetNo, $size)
     {
+        if (is_null($size)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $this->getSheet($sheetNo)->getStyle($cellInfo)->getFont()->setSize($size);
     }
@@ -367,8 +368,11 @@ class PhpExcelWrapper
     * typeはgetAlignHolizonalType参照
     * @author hagiwara
     */
-    public function setAlignHolizonal($col, $row, $sheetNo, $type = 'center')
+    public function setAlignHolizonal($col, $row, $sheetNo, $type)
     {
+        if (is_null($type)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $this->getSheet($sheetNo)->getStyle($cellInfo)->getAlignment()->setHorizontal($this->getAlignHolizonalType($type));
     }
@@ -383,8 +387,11 @@ class PhpExcelWrapper
     * typeはgetAlignVerticalType参照
     * @author hagiwara
     */
-    public function setAlignVertical($col, $row, $sheetNo, $type = 'center')
+    public function setAlignVertical($col, $row, $sheetNo, $type)
     {
+        if (is_null($type)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $this->getSheet($sheetNo)->getStyle($cellInfo)->getAlignment()->setVertical($this->getAlignVerticalType($type));
     }
