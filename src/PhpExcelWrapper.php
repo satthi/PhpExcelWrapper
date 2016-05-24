@@ -605,6 +605,7 @@ class PhpExcelWrapper
     * シート情報の読み込み
     * @param integer $sheetNo シート番号
     * @author hagiwara
+    * @return null|\PHPExcel_Worksheet
     */
     private function getSheet($sheetNo)
     {
