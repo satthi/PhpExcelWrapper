@@ -238,7 +238,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param string $fontName フォント名
+    * @param string|null $fontName フォント名
     * @author hagiwara
     */
     public function setFontName($col, $row, $sheetNo, $fontName)
@@ -256,7 +256,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $underline 下線を引くか
+    * @param boolean|null $underline 下線を引くか
     * @author hagiwara
     */
     public function setUnderline($col, $row, $sheetNo, $underline)
@@ -274,7 +274,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $bold 太字を引くか
+    * @param boolean|null $bold 太字を引くか
     * @author hagiwara
     */
     public function setFontBold($col, $row, $sheetNo, $bold)
@@ -292,7 +292,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $italic イタリックにするか
+    * @param boolean|null $italic イタリックにするか
     * @author hagiwara
     */
     public function setItalic($col, $row, $sheetNo, $italic)
@@ -310,7 +310,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean $strikethrough 打ち消し線をつけるか
+    * @param boolean|null $strikethrough 打ち消し線をつけるか
     * @author hagiwara
     */
     public function setStrikethrough($col, $row, $sheetNo, $strikethrough)
@@ -328,7 +328,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param string $color 色(ARGB)
+    * @param string|null $color 色(ARGB)
     * @author hagiwara
     */
     public function setColor($col, $row, $sheetNo, $color)
@@ -346,7 +346,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param integer $size
+    * @param integer|null $size
     * @author hagiwara
     */
     public function setSize($col, $row, $sheetNo, $size)
@@ -364,7 +364,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param string $type
+    * @param string|null $type
     * typeはgetAlignHolizonalType参照
     * @author hagiwara
     */
@@ -383,7 +383,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param string $type
+    * @param string|null $type
     * typeはgetAlignVerticalType参照
     * @author hagiwara
     */
