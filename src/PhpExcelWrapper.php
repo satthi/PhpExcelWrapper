@@ -449,7 +449,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param array $border
+    * @param array|null $border
     * borderの内部はgetBorderType参照
     * @author hagiwara
     */
