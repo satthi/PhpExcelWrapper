@@ -109,7 +109,15 @@ $PhpExcelWrapper->cellMerge(0, 1, 0, 0, 1, 1);
 $style = [
     //フォント名
     'font' => 'HGP行書体',
-    'underline' => true,
+    /*
+    //underline パラメータリスト
+    'double' => PHPExcel_Style_Font::UNDERLINE_DOUBLE
+    'doubleaccounting' => PHPExcel_Style_Font::UNDERLINE_DOUBLEACCOUNTING
+    'none' => PHPExcel_Style_Font::UNDERLINE_NONE
+    'single' => PHPExcel_Style_Font::UNDERLINE_SINGLE
+    'singleaccounting' => PHPExcel_Style_Font::UNDERLINE_SINGLEACCOUNTING
+    */
+    'underline' => 'single',
     'bold' => true,
     'italic' => true,
     'strikethrough' => true,
