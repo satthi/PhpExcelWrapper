@@ -10,7 +10,7 @@ composer.json
 ```
 {
 	"require": {
-		"satthi/phpexcelwrapper": "dev-master"
+		"satthi/phpexcelwrapper": "*"
 	}
 }
 ```
@@ -29,7 +29,7 @@ class hoge{
     public function fuga(){
         $PhpExcelWrapper = new PhpExcelWrapper();
         //テンプレート使用の場合
-        //$PhpExcelWrapper = new PhpExcelWrapper('./mutial_condition.xlsx');
+        //$PhpExcelWrapper = new PhpExcelWrapper('./template.xlsx');
         $PhpExcelWrapper->setVal('設定したい値', 3, 1, 0);
         $PhpExcelWrapper->write('export.xlsx');
     }
@@ -142,6 +142,45 @@ $style = [
     'top' => PHPExcel_Style_Alignment::VERTICAL_TOP,
     */
     'alignv' => 'bottom',
+    /*
+    //罫線の位置
+    'left' => null,
+    'right' => null,
+    'top' => null,
+    'bottom' => null,
+    'diagonal' => null,
+    'all_borders' => null,
+    'outline' => null,
+    'inside' => null,
+    'vertical' => null,
+    'horizontal' => null,
+    
+    //罫線の種類
+    'none' => PHPExcel_Style_Border::BORDER_NONE,
+    'thin' => PHPExcel_Style_Border::BORDER_THIN,
+    'medium' => PHPExcel_Style_Border::BORDER_MEDIUM,
+    'dashed' => PHPExcel_Style_Border::BORDER_DASHED,
+    'dotted' => PHPExcel_Style_Border::BORDER_DOTTED,
+    'thick' => PHPExcel_Style_Border::BORDER_THICK,
+    'double' => PHPExcel_Style_Border::BORDER_DOUBLE,
+    'hair' => PHPExcel_Style_Border::BORDER_HAIR,
+    'mediumdashed' => PHPExcel_Style_Border::BORDER_MEDIUMDASHED,
+    'dashdot' => PHPExcel_Style_Border::BORDER_DASHDOT,
+    'mediumdashdot' => PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT,
+    'dashdotdot' => PHPExcel_Style_Border::BORDER_DASHDOTDOT,
+    'mediumdashdotdot' => PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT,
+    'slantdashdot' => PHPExcel_Style_Border::BORDER_SLANTDASHDOT,
+    */
+    'border' => [
+        'top' => [
+            'type' => 'mediumdashed',
+            'color' => 'FF664422'
+        ],
+        'bottom' => [
+            'type' => 'double',
+            'color' => 'FF224466'
+        ],
+    ],
     'bgcolor' => 'FF0000FF',
     /*
     //bgpattern パラメータリスト
@@ -170,42 +209,6 @@ $style = [
     'bgpattern' => 'lighthorizontal',
 ];
 $PhpExcelWrapper->setStyle(3, 1, 0, $style);
-
-/**
-* setBorder
-* 罫線の設定
-* @param integer $col 行
-* @param integer $row 列
-* @param integer $sheetNo シート番号
-* @param array $border
-* borderの内部はgetBorderType参照
-* @author hagiwara
-*/
-$border = [
-    'all_borders' => [
-        /*
-        //border  パラメータリスト
-        'none' => PHPExcel_Style_Border::BORDER_NONE,
-        'thin' => PHPExcel_Style_Border::BORDER_THIN,
-        'medium' => PHPExcel_Style_Border::BORDER_MEDIUM,
-        'dashed' => PHPExcel_Style_Border::BORDER_DASHED,
-        'dotted' => PHPExcel_Style_Border::BORDER_DOTTED,
-        'thick' => PHPExcel_Style_Border::BORDER_THICK,
-        'double' => PHPExcel_Style_Border::BORDER_DOUBLE,
-        'hair' => PHPExcel_Style_Border::BORDER_HAIR,
-        'mediumdashed' => PHPExcel_Style_Border::BORDER_MEDIUMDASHED,
-        'dashdot' => PHPExcel_Style_Border::BORDER_DASHDOT,
-        'mediumdashdot' => PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT,
-        'dashdotdot' => PHPExcel_Style_Border::BORDER_DASHDOTDOT,
-        'mediumdashdotdot' => PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT,
-        'slantdashdot' => PHPExcel_Style_Border::BORDER_SLANTDASHDOT,
-        */
-        'type' => 'mediumdashdot',
-        'color' => 'FF00FF00'
-    ]
-];
-$PhpExcelWrapper->setBorder(3, 1, 0, $border);
-
 
 /**
 * createSheet
