@@ -2,9 +2,11 @@
 
 namespace PhpExcelWrapper;
 
+use \PHPExcel;
 use \PHPExcel_IOFactory;
 use \PHPExcel_Cell;
 use \PHPExcel_Worksheet_Drawing;
+use \PHPExcel_Style_Font;
 use \PHPExcel_Style_Border;
 use \PHPExcel_Style_Alignment;
 use \PHPExcel_Style_Fill;
@@ -18,6 +20,14 @@ class PhpExcelWrapper
     private $__phpexcel;
     private $__sheet = [];
     private $__deleteSheetList = [];
+    private static $__underlineType = [
+        'double' => PHPExcel_Style_Font::UNDERLINE_DOUBLE,
+        'doubleaccounting' => PHPExcel_Style_Font::UNDERLINE_DOUBLEACCOUNTING,
+        'none' => PHPExcel_Style_Font::UNDERLINE_NONE,
+        'single' => PHPExcel_Style_Font::UNDERLINE_SINGLE,
+        'singleaccounting' => PHPExcel_Style_Font::UNDERLINE_SINGLEACCOUNTING,
+    ];
+
     private static $__borderType = [
         'none' => PHPExcel_Style_Border::BORDER_NONE,
         'thin' => PHPExcel_Style_Border::BORDER_THIN,
@@ -85,7 +95,7 @@ class PhpExcelWrapper
     {
         if ($template === null) {
             //テンプレート無し
-            $this->__phpexcel = new \PHPExcel();
+            $this->__phpexcel = new PHPExcel();
         } else {
             //テンプレートの読み込み
             $reader = PHPExcel_IOFactory::createReader($type);
@@ -138,14 +148,14 @@ class PhpExcelWrapper
         $objDrawing = new PHPExcel_Worksheet_Drawing();//画像用のオプジェクト作成
         $objDrawing->setPath($img);//貼り付ける画像のパスを指定
         $objDrawing->setCoordinates($cellInfo);//位置
+        if (!is_null($proportial)) {
+            $objDrawing->setResizeProportional($proportial);//縦横比の変更なし
+        }
         if (!is_null($height)) {
             $objDrawing->setHeight($height);//画像の高さを指定
         }
         if (!is_null($width)) {
             $objDrawing->setWidth($width);//画像の高さを指定
-        }
-        if (!is_null($proportial)) {
-            $objDrawing->setResizeProportional($proportial);//縦横比の変更なし
         }
         if (!is_null($offsetx)) {
             $objDrawing->setOffsetX($offsetx);//指定した位置からどれだけ横方向にずらすか。
@@ -218,6 +228,7 @@ class PhpExcelWrapper
             'alignv' => null,
             'bgcolor' => null,
             'bgpattern' => null,
+            'border' => null,
         ];
         $style = array_merge($default_style, $style);
         $this->setFontName($col, $row, $sheetNo, $style['font']);
@@ -230,6 +241,7 @@ class PhpExcelWrapper
         $this->setAlignHolizonal($col, $row, $sheetNo, $style['alignh']);
         $this->setAlignVertical($col, $row, $sheetNo, $style['alignv']);
         $this->setBackgroundColor($col, $row, $sheetNo, $style['bgcolor'], $style['bgpattern']);
+        $this->setBorder($col, $row, $sheetNo, $style['border']);
     }
 
     /**
@@ -255,7 +267,7 @@ class PhpExcelWrapper
     * @param integer $col 行
     * @param integer $row 列
     * @param integer $sheetNo シート番号
-    * @param boolean|null $underline 下線を引くか
+    * @param string|null $underline 下線の種類
     * @author hagiwara
     */
     public function setUnderline($col, $row, $sheetNo, $underline)
@@ -264,6 +276,22 @@ class PhpExcelWrapper
             return;
         }
         $this->getFont($col, $row, $sheetNo)->setUnderline($underline);
+    }
+
+
+    /**
+    * getUnderlineType
+    * 下線の種類の設定
+    * @param string $type
+    * @author hagiwara
+    */
+    private function getUnderlineType($type)
+    {
+        $type_list = self::$__underlineType;
+        if (array_key_exists($type, $type_list)) {
+            return $type_list[$type];
+        }
+        return PHPExcel_Style_Border::UNDERLINE_NONE;
     }
 
     /**
@@ -427,6 +455,9 @@ class PhpExcelWrapper
     */
     public function setBorder($col, $row, $sheetNo, $border)
     {
+        if (is_null($border)) {
+            return;
+        }
         $cellInfo = $this->cellInfo($col, $row);
         $default_border = [
             'left' => null,
@@ -590,7 +621,7 @@ class PhpExcelWrapper
     */
     public function renameSheet($sheetNo, $name)
     {
-        $this->__sheet[$sheetNo]->setTitle($name);
+        $this->getSheet($sheetNo)->setTitle($name);
     }
 
     /**
@@ -629,7 +660,7 @@ class PhpExcelWrapper
     private function getSheet($sheetNo)
     {
         if (!array_key_exists($sheetNo, $this->__sheet)) {
-            $this->__sheet[$sheetNo] = $this->__phpexcel->setActiveSheetIndex(0);
+            $this->__sheet[$sheetNo] = $this->__phpexcel->setActiveSheetIndex($sheetNo);
         }
         return $this->__sheet[$sheetNo];
     }
