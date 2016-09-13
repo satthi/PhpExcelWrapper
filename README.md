@@ -57,6 +57,16 @@ $hoge->fuga();
 $PhpExcelWrapper->setVal('設定したい値', 3, 1, 0);
 
 /**
+* geVal
+* 値の取得
+* @param integer $col 行 一番左は0
+* @param integer $row 列 一番上は1
+* @param integer $sheetNo シート番号 default 0
+* @author hagiwara
+*/
+$PhpExcelWrapper->getVal(3, 1, 0);
+
+/**
 * setImage
 * 画像のセット
 * @param text $img 画像のファイルパス
@@ -154,7 +164,7 @@ $style = [
     'inside' => null,
     'vertical' => null,
     'horizontal' => null,
-    
+
     //罫線の種類
     'none' => PHPExcel_Style_Border::BORDER_NONE,
     'thin' => PHPExcel_Style_Border::BORDER_THIN,
