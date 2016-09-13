@@ -128,6 +128,21 @@ class PhpExcelWrapper
     }
 
     /**
+    * getVal
+    * 値の取得
+    * @param integer $col 行
+    * @param integer $row 列
+    * @param integer $sheetNo シート番号
+    * @author hagiwara
+    */
+    public function getVal($col, $row, $sheetNo = 0)
+    {
+        $cellInfo = $this->cellInfo($col, $row);
+        //値の取得
+        return $this->getSheet($sheetNo)->getCell($cellInfo)->getValue();
+    }
+
+    /**
     * setImage
     * 画像のセット
     * @param string $img 画像のファイルパス
