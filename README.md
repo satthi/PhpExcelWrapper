@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/satthi/PhpExcelWrapper.svg?branch=master)](https://travis-ci.org/satthi/PhpExcelWrapper)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/satthi/PhpExcelWrapper/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/satthi/PhpExcelWrapper/?branch=master)
 
-このプロジェクトは[PHPExcel](https://github.com/PHPOffice/PHPExcel)を自分が使いやすいように対応したものになります。
+~~このプロジェクトは[PHPExcel](https://github.com/PHPOffice/PHPExcel)を自分が使いやすいように対応したものになります。~~
+
+[PhpSpreadsheetWrapper](https://github.com/satthi/PhpSpreadsheetWrapper)をご利用ください。
 
 ## インストール
 composer.json
